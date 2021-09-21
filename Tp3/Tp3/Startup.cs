@@ -4,15 +4,16 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
+using SistemaCadeteria.Modelo;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Tp3
 {
     public class Startup
     {
+        static DBTemporal DB = new DBTemporal();
+        
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,6 +25,7 @@ namespace Tp3
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSingleton(DB);            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

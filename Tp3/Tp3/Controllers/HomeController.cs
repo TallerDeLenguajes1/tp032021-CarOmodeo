@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Tp3.Models;
+using SistemaCadeteria.Modelo;
+using System.Collections.Generic;
 
 namespace Tp3.Controllers
 {
     public class HomeController : Controller
     {
+        
         private readonly ILogger<HomeController> _logger;
+        private readonly List<Cadete> cadetes;
+        private readonly List<Pedido> pedidos;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -26,17 +27,7 @@ namespace Tp3.Controllers
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        public IActionResult VistaCadete()
-        {
-            return View();
-        }
-
-        public IActionResult VistaPedido()
-        {
-            return View();
-        }
+        }      
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

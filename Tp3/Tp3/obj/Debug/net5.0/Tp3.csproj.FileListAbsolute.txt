@@ -25,8 +25,6 @@ C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Tp3.TagHe
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Tp3.RazorCoreGenerate.cache
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
-C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Home\VistaCadete.cshtml.g.cs
-C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Home\VistaPedido.cshtml.g.cs
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -40,3 +38,12 @@ C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\ref\Tp3.d
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Tp3.pdb
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Tp3.genruntimeconfig.cache
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Tp3.csproj.CopyComplete
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\bin\Debug\net5.0\Modelo.dll
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\bin\Debug\net5.0\Modelo.pdb
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Cadete\VistaCadete.cshtml.g.cs
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Pedido\VistaPedido.cshtml.g.cs
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\bin\Debug\net5.0\System.Text.Json.dll
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\bin\Debug\net5.0\Cadetes.json
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Cadete\AltaCadete.cshtml.g.cs
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Pedido\AltaPedido.cshtml.g.cs
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Pedido\MostrarPedido.cshtml.g.cs

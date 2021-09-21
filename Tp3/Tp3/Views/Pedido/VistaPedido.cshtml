@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<SistemaCadeteria.Modelo.Pedido>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nro</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Observaciones</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Cadete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <th scope="row">@item.Nro</th>
+            <td>@item.Cliente.Id</td>
+            <td>@item.Cliente.Nombre</td>
+            <td>@item.Cliente.Direccion</td>
+            <td>@item.Cliente.Telefono</td>
+            <td>@item.Estado</td>
+            <td>@item.Obs</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<form asp-action="AltaPedido" asp-controller="Home" method="post">
+    <input type="submit" value="Agragar Nuevo Pedido" />
+</form>

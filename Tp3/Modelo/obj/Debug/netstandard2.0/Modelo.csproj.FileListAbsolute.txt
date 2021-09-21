@@ -1,0 +1,9 @@
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Modelo\bin\Debug\netstandard2.0\Modelo.deps.json
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Modelo\bin\Debug\netstandard2.0\Modelo.dll
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Modelo\bin\Debug\netstandard2.0\Modelo.pdb
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Modelo\obj\Debug\netstandard2.0\Modelo.csprojAssemblyReference.cache
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Modelo\obj\Debug\netstandard2.0\Modelo.AssemblyInfoInputs.cache
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Modelo\obj\Debug\netstandard2.0\Modelo.AssemblyInfo.cs
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Modelo\obj\Debug\netstandard2.0\Modelo.csproj.CoreCompileInputs.cache
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Modelo\obj\Debug\netstandard2.0\Modelo.dll
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Modelo\obj\Debug\netstandard2.0\Modelo.pdb
