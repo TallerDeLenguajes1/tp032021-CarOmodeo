@@ -18,19 +18,21 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <th scope="row">@item.Id</th>
-                <td>@item.Nombre</td>
-                <td>@item.Direccion</td>
-                <td>@item.Telefono</td>
-                <td>@item.ListaPedido.Count()</td>
-            </tr>
+        <tr>
+            <th scope="row">@item.Id</th>
+            <td>@item.Nombre</td>
+            <td>@item.Direccion</td>
+            <td>@item.Telefono</td>
+            <td>@item.ListaPedido.Count()</td>
+            <td>@Html.ActionLink("Pedidos", "MostrarPedido", "Pedido", new { id = item.Id }, new { @class = "btnagre" })</td>
+            <td>@Html.ActionLink("Eliminar", "EliminarCadete", new { id = item.Id }, new { @class = "btnagre" })</td>
+        </tr>
         }
     </tbody>
 </table>
 
-<form asp-action="AltaCadete" asp-controller="Home" method="post">
-    <input type="submit" value="Agragar Nuevo Cadete" />
-</form>
+@*<form asp-action="AltaCadete" asp-controller="Home" method="post">
+        <input type="submit" value="Agragar Nuevo Cadete" />
+    </form>*@
 
- @*<a class="btn btn-primary" asp-controller="Cadete" asp-action="AltaCadete" role="button">Agragar Nuevo Cadete</a>*@
+<a class="link" asp-controller="Cadete" asp-action="AltaCadete">Agragar Nuevo Cadete</a>

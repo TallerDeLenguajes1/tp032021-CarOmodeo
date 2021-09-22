@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SistemaCadeteria.Modelo;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Tp3.Controllers
 {
@@ -33,12 +34,42 @@ namespace Tp3.Controllers
                 _DB.cadeteria.pedidos.Add(nuevoPedido);
             }            
 
-            return View(_DB.cadeteria.pedidos);
+            return View(_DB.cadeteria);
         }
 
-        public IActionResult MostrarPedido(Cadete cadete)
+        public IActionResult MostrarPedido(int id)
+        { 
+            return View(_DB.cadeteria.cadetes[_DB.cadeteria.cadetes.IndexOf(_DB.cadeteria.cadetes.Where(a => a.Id == id).First())]);
+        }
+
+        public IActionResult AsignarCadete(int idPedido, int idCadete)
         {
-            return View(cadete.ListaPedido);
+            Pedido pedido = _DB.cadeteria.pedidos.Where(a => a.Nro == idPedido).First();
+            quitarPedidoCadete(pedido);
+
+            Cadete cadete = _DB.cadeteria.cadetes.Where(a => a.Id == idCadete).First();
+            cadete.ListaPedido.Add(pedido);
+
+            return View("VistaPedido", _DB.cadeteria);
+        }
+
+        public IActionResult EliminarPedido(int idPedido)
+        {
+            eliminarUnPedido(idPedido);
+            return View("VistaPedido", _DB.cadeteria);
+        }
+
+        public void eliminarUnPedido(int id)
+        {
+            Pedido pedido =_DB.cadeteria.pedidos.Where(a => a.Nro == id).First();
+            _DB.cadeteria.pedidos.Remove(pedido);
+
+            quitarPedidoCadete(pedido);
+        }
+
+        public void quitarPedidoCadete(Pedido pedido)
+        {
+            _DB.cadeteria.cadetes.ForEach(cad => cad.ListaPedido.Remove(pedido));
         }
     }
 }

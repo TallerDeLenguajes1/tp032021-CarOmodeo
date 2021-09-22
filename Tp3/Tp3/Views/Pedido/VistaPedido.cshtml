@@ -3,7 +3,7 @@
 *@
 @{
 }
-@model List<SistemaCadeteria.Modelo.Pedido>
+@model SistemaCadeteria.Modelo.Cadeteria
 
 
 <table class="table">
@@ -20,21 +20,44 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+
+        @foreach (var item in Model.pedidos)
         {
-        <tr>
-            <th scope="row">@item.Nro</th>
-            <td>@item.Cliente.Id</td>
-            <td>@item.Cliente.Nombre</td>
-            <td>@item.Cliente.Direccion</td>
-            <td>@item.Cliente.Telefono</td>
-            <td>@item.Estado</td>
-            <td>@item.Obs</td>
-        </tr>
+            <form asp-action="AsignarCadete">
+                <tr>
+                    <td hidden> <input name="idPedido" value = "@item.Nro"></td>
+                    <th scope="row">@item.Nro</th>
+                    <td>@item.Cliente.Id</td>
+                    <td>@item.Cliente.Nombre</td>
+                    <td>@item.Cliente.Direccion</td>
+                    <td>@item.Cliente.Telefono</td>
+                    <td>@item.Estado</td>
+                    <td>@item.Obs</td>
+                    <td>
+                        <select name="idCadete" class="form-select">
+                            @foreach (var cadete in Model.cadetes)
+                            {
+                                @if (cadete.ListaPedido.Exists(a => a.Nro == item.Nro))
+                                {
+                                    <option selected value="@cadete.Id">@cadete.Nombre</option>
+                                }
+                                else
+                                {
+                                    <option value="@cadete.Id">@cadete.Nombre</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td><button type="submit">Elegir Cadete</button></td>
+                    <td>@Html.ActionLink("Eliminar", "EliminarPedido", new {idPedido = item.Nro }, new { @class = "btnagre" })</td>
+                </tr>                
+            </form>
         }
-    </tbody>
+        </tbody>
 </table>
 
-<form asp-action="AltaPedido" asp-controller="Home" method="post">
-    <input type="submit" value="Agragar Nuevo Pedido" />
-</form>
+@*<form asp-action="AltaPedido" asp-controller="Home" method="post">
+        <input type="submit" value="Agragar Nuevo Pedido" />
+    </form>*@
+
+<a class="link" asp-controller="Pedido" asp-action="AltaPedido">Crear Nuevo Pedido</a>

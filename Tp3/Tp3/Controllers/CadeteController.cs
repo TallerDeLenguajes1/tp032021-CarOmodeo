@@ -38,5 +38,19 @@ namespace Tp3.Controllers
             
             return View(_DB.cadeteria.cadetes);
         }
+
+        public IActionResult EliminarCadete(int id)
+        {
+            int i = 0;
+            foreach (var item in _DB.cadeteria.cadetes)
+            {
+                if(item.Id == id)
+                {
+                    _DB.cadeteria.cadetes = DBTemporal.borrarCadete(i);
+                }
+                i++;
+            }
+            return View("VistaCadete", _DB.cadeteria.cadetes);
+        }
     }
 }

@@ -53,5 +53,22 @@ namespace SistemaCadeteria.Modelo
             return listaCadetes;
         }
 
+        public static List<Cadete> borrarCadete(int id)
+        {
+            List<Cadete> listaCadetes = leerArchivoCadetes();
+
+            listaCadetes.RemoveAt(id);
+
+            FileStream archiboCadetes = new FileStream("Cadetes.json", FileMode.Create);
+            StreamWriter escribirCadete = new StreamWriter(archiboCadetes);
+
+            string strJson = JsonSerializer.Serialize(listaCadetes);
+            escribirCadete.WriteLine("{0}", strJson);
+
+            escribirCadete.Close();
+
+            return listaCadetes;
+        }
+
     }
 }

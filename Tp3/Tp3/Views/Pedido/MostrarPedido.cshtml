@@ -3,7 +3,7 @@
 *@
 @{
 }
-@model List<SistemaCadeteria.Modelo.Pedido>
+@model SistemaCadeteria.Modelo.Cadete
 
 
 <table class="table">
@@ -19,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.ListaPedido)
         {
             <tr>
                 <th scope="row">@item.Nro</th>
@@ -34,6 +34,8 @@
     </tbody>
 </table>
 
-<form asp-action="VistaCadete" asp-controller="Cadete" method="post">
-    <input type="submit" value="Volver" />
-</form>
+@*<form asp-action="VistaCadete" asp-controller="Cadete" method="post">
+        <input type="submit" value="Volver" />
+    </form>*@
+
+<a class="link" asp-controller="Cadete" asp-action="VistaCadete">Volver</a>
