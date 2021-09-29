@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace SistemaCadeteria.Modelo
@@ -42,13 +43,7 @@ namespace SistemaCadeteria.Modelo
 
             listaCadetes.Add(cadete);
 
-            FileStream archiboCadetes = new FileStream("Cadetes.json", FileMode.Create);
-            StreamWriter escribirCadete = new StreamWriter(archiboCadetes);
-
-            string strJson = JsonSerializer.Serialize(listaCadetes);
-            escribirCadete.WriteLine("{0}", strJson);
-
-            escribirCadete.Close();
+            guardarJson(listaCadetes);
 
             return listaCadetes;
         }
@@ -59,6 +54,33 @@ namespace SistemaCadeteria.Modelo
 
             listaCadetes.RemoveAt(id);
 
+            guardarJson(listaCadetes);
+
+            return listaCadetes;
+        }
+
+        public static List<Cadete> modificarInfoCadete(Cadete cad)
+        {
+            List<Cadete> listaCadetes = leerArchivoCadetes();
+
+            foreach (var item in listaCadetes)
+            {
+                if(item.Id == cad.Id)
+                {
+                    item.Nombre = cad.Nombre;
+                    item.Telefono = cad.Telefono;
+                    item.Direccion = cad.Direccion;
+                    break;
+                }
+            }
+
+            guardarJson(listaCadetes);
+
+            return listaCadetes;
+        }
+
+        public static void guardarJson(List<Cadete> listaCadetes)
+        {
             FileStream archiboCadetes = new FileStream("Cadetes.json", FileMode.Create);
             StreamWriter escribirCadete = new StreamWriter(archiboCadetes);
 
@@ -66,9 +88,8 @@ namespace SistemaCadeteria.Modelo
             escribirCadete.WriteLine("{0}", strJson);
 
             escribirCadete.Close();
-
-            return listaCadetes;
         }
-
     }
+
+    
 }

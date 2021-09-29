@@ -17,6 +17,8 @@
             <th scope="col">Observaciones</th>
             <th scope="col">Estado</th>
             <th scope="col">Cadete</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +36,8 @@
                     <td>@item.Estado</td>
                     <td>@item.Obs</td>
                     <td>
-                        <select name="idCadete" class="form-select">
+                        <select name="idCadete" class="form-select" required>
+                            @*<option>Seleccionar un cadete...</option>*@
                             @foreach (var cadete in Model.cadetes)
                             {
                                 @if (cadete.ListaPedido.Exists(a => a.Nro == item.Nro))
@@ -48,7 +51,7 @@
                             }
                         </select>
                     </td>
-                    <td><button type="submit">Elegir Cadete</button></td>
+                    <td><button type="submit" class="btn btn-primary">Asignar Cadete</button></td>
                     <td>@Html.ActionLink("Eliminar", "EliminarPedido", new {idPedido = item.Nro }, new { @class = "btnagre" })</td>
                 </tr>                
             </form>

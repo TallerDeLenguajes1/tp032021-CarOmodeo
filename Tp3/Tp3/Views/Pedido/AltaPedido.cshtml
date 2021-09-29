@@ -5,22 +5,30 @@
 }
 
 <h2>Generar un Pedido</h2>
+
 <form asp-action="VistaPedido" asp-controller="Pedido" method="post">
-    
-    <label>Nombre</label>
-    <input name="nombre" type="text" />
+    <fieldset>
+        <div class="mb-3">
+            <label for="disabledText" class="form-label">Nombre</label>
+            <input type="text" name="nombre" id="disabledText" class="form-control" placeholder="Escribir nombre..." required>
+        </div>
+        <div class="mb-3">
+            <label for="disabledText" class="form-label">Direccion</label>
+            <input type="text" name="direccion" id="disabledText" class="form-control" placeholder="Escribir direccion..." required>
+        </div>
+        <div class="mb-3">
+            <label for="disabledText" class="form-label">Telefono</label>
+            <input type="tel" name="tel" id="disabledText" class="form-control" placeholder="Escribir telefono..." required>
+        </div>
+        <div class="mb-3">
+            <label for="disabledText" class="form-label">DNI</label>
+            <input type="text" name="dni" id="disabledText" class="form-control" placeholder="Escribir DNI..." required>
+        </div>
+        <div>
+            <label for="disabledText" class="form-label">Observaciones</label>
+            <textarea class="form-control" aria-label="With textarea" name="obs" required></textarea>
+        </div>
 
-    <label>Direccion</label>
-    <input name="direccion" type="text" />
-
-    <label>Telefono</label>
-    <input name="tel" type="tel" />
-
-    <label>DNI</label>
-    <input name="dni" type="text" />
-
-    <label>Observaciones</label>
-    <input name="obs" type="text" />
-
-    <input type="submit" value="Generar Pedido!!" />
+        <button type="submit" class="btn btn-primary">Enviar!!</button>
+    </fieldset>
 </form>

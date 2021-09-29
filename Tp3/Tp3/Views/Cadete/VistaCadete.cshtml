@@ -12,7 +12,9 @@
             <th scope="col">Dirección</th>
             <th scope="col">Teléfono</th>
             <th scope="col">Pedidos</th>
-
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +28,7 @@
             <td>@item.ListaPedido.Count()</td>
             <td>@Html.ActionLink("Pedidos", "MostrarPedido", "Pedido", new { id = item.Id }, new { @class = "btnagre" })</td>
             <td>@Html.ActionLink("Eliminar", "EliminarCadete", new { id = item.Id }, new { @class = "btnagre" })</td>
+            <td>@Html.ActionLink("Modificar", "ModificarCadete", new { id = item.Id }, new { @class = "btnagre" })</td>
         </tr>
         }
     </tbody>

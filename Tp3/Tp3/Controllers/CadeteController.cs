@@ -27,13 +27,22 @@ namespace Tp3.Controllers
             return View();
         }
 
-        public IActionResult VistaCadete(string nombre, string direccion, string tel)
+        public IActionResult VistaCadete(int id, string nombre, string direccion, string tel)
         {
             if(nombre != null && direccion != null && tel != null)
             {
-                int id = _DB.cadeteria.cadetes.Count() + 1;
-                Cadete nuevoCadete = new Cadete(id, nombre, direccion, tel);
-                _DB.cadeteria.cadetes = DBTemporal.guardarCadete(nuevoCadete);
+                if (id == 0)
+                {
+                    //int id = _DB.cadeteria.cadetes.Count() + 1;
+                    id = _DB.cadeteria.cadetes.Last().Id + 1;
+                    Cadete nuevoCadete = new Cadete(id, nombre, direccion, tel);
+                    _DB.cadeteria.cadetes = DBTemporal.guardarCadete(nuevoCadete);
+                }  
+                else
+                {
+                    Cadete cadete = new Cadete(id, nombre, direccion, tel);
+                    _DB.cadeteria.cadetes = DBTemporal.modificarInfoCadete(cadete);
+                }
             }
             
             return View(_DB.cadeteria.cadetes);
@@ -47,10 +56,17 @@ namespace Tp3.Controllers
                 if(item.Id == id)
                 {
                     _DB.cadeteria.cadetes = DBTemporal.borrarCadete(i);
+                    break;
                 }
                 i++;
             }
             return View("VistaCadete", _DB.cadeteria.cadetes);
+        }
+
+        public IActionResult ModificarCadete(int id)
+        {
+            Cadete cadete = _DB.cadeteria.cadetes.Where(a => a.Id == id).First();
+            return View(cadete);
         }
     }
 }

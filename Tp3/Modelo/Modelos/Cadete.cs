@@ -27,16 +27,6 @@ namespace SistemaCadeteria.Modelo
             this.telefono = telefono;
             listaPedido = new List<Pedido>();
         }
-
-        public void agregarPedido(Pedido nuevoPedido)
-        {
-            listaPedido.Add(nuevoPedido);
-        }
-
-        public void quitarPedido(Pedido pedido)
-        {
-            listaPedido.Remove(pedido);
-        }
     }
 
 
