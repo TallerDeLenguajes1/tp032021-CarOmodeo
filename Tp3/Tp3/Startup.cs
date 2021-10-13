@@ -6,13 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SistemaCadeteria.Modelo;
 using System.Collections.Generic;
+using NLog.Web;
 
 namespace Tp3
 {
     public class Startup
     {
-        static DBTemporal DB = new DBTemporal();
-        
+        static readonly DBTemporal DB = new DBTemporal(NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger());        
 
         public Startup(IConfiguration configuration)
         {

@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
+using NLog;
 
 namespace SistemaCadeteria.Modelo
 {
     public class DBTemporal
     {
+        private readonly ILogger _logger;
         public Cadeteria cadeteria { get; set; }
 
-        public DBTemporal()
+        public DBTemporal(ILogger logger)
         {
+            _logger = logger;
             cadeteria = new Cadeteria();
             cadeteria.cadetes = leerArchivoCadetes();
+            agregarPedidosGuardados();
         }
 
-        public static List<Cadete> leerArchivoCadetes()
+        public List<Cadete> leerArchivoCadetes()
         {
             List<Cadete> listaCadetes;
             string rutaArchivo = @"Cadetes.json";
@@ -29,41 +32,34 @@ namespace SistemaCadeteria.Modelo
                     listaCadetes = JsonSerializer.Deserialize<List<Cadete>>(Json);
                 }
             }
-            catch (FileNotFoundException)
+            catch (Exception ex)
             {
                 listaCadetes = new List<Cadete>();
+                string mensaje = "Error: " + ex.Message;
+                mensaje += "Stack trace: " + ex.StackTrace;
+                _logger.Error(mensaje);
             }
 
             return listaCadetes;
         }
 
-        public static List<Cadete> guardarCadete(Cadete cadete)
+        public void guardarCadete(Cadete cadete)
         {
-            List<Cadete> listaCadetes = leerArchivoCadetes();
+           cadeteria.cadetes.Add(cadete);
 
-            listaCadetes.Add(cadete);
-
-            guardarJson(listaCadetes);
-
-            return listaCadetes;
+            guardarJson(cadeteria.cadetes);
         }
 
-        public static List<Cadete> borrarCadete(int id)
+        public void borrarCadete(int id)
         {
-            List<Cadete> listaCadetes = leerArchivoCadetes();
+            cadeteria.cadetes.RemoveAt(id);
 
-            listaCadetes.RemoveAt(id);
-
-            guardarJson(listaCadetes);
-
-            return listaCadetes;
+            guardarJson(cadeteria.cadetes);
         }
 
-        public static List<Cadete> modificarInfoCadete(Cadete cad)
+        public void modificarInfoCadete(Cadete cad)
         {
-            List<Cadete> listaCadetes = leerArchivoCadetes();
-
-            foreach (var item in listaCadetes)
+            foreach (var item in cadeteria.cadetes)
             {
                 if(item.Id == cad.Id)
                 {
@@ -74,20 +70,44 @@ namespace SistemaCadeteria.Modelo
                 }
             }
 
-            guardarJson(listaCadetes);
-
-            return listaCadetes;
+            guardarJson(cadeteria.cadetes);
         }
 
-        public static void guardarJson(List<Cadete> listaCadetes)
+        public void guardarJson(List<Cadete> listaCadetes)
         {
-            FileStream archiboCadetes = new FileStream("Cadetes.json", FileMode.Create);
-            StreamWriter escribirCadete = new StreamWriter(archiboCadetes);
+            try
+            { 
+                FileStream archiboCadetes = new FileStream("Cadetes.json", FileMode.Create);
+                StreamWriter escribirCadete = new StreamWriter(archiboCadetes);
 
-            string strJson = JsonSerializer.Serialize(listaCadetes);
-            escribirCadete.WriteLine("{0}", strJson);
+                string strJson = JsonSerializer.Serialize(listaCadetes);
+                escribirCadete.WriteLine("{0}", strJson);
 
-            escribirCadete.Close();
+                escribirCadete.Close();
+                escribirCadete.Dispose();
+            }
+            catch(Exception ex)
+            {
+                string mensaje = "Error: " + ex.Message;
+                mensaje += "Stack Trace: " + ex.StackTrace;
+                _logger.Error(mensaje);
+            }
+        }
+
+        public void actualizarBD()
+        {
+            guardarJson(cadeteria.cadetes);
+        }
+
+        private void agregarPedidosGuardados()
+        {
+            foreach(var cadete in cadeteria.cadetes)
+            {
+                foreach(var pedido in cadete.ListaPedido)
+                {
+                    cadeteria.pedidos.Add(pedido);
+                }
+            }
         }
     }
 

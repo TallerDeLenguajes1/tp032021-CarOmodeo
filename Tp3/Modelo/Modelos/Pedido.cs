@@ -7,6 +7,7 @@ namespace SistemaCadeteria.Modelo
 {
     public enum EstadoPedido
     {
+        Ingresado,
         Aceptado,
         EnCamino,
         Entregado,
@@ -30,6 +31,11 @@ namespace SistemaCadeteria.Modelo
             this.obs = obs;
             this.cliente = new Cliente(nombre, direccion, telefono, dni);
             estado = 0;
+        }
+
+        public Pedido()
+        {
+
         }
 
     }

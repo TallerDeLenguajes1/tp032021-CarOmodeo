@@ -18,7 +18,6 @@
             <th scope="col">Estado</th>
             <th scope="col">Cadete</th>
             <th></th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -27,17 +26,17 @@
         {
             <form asp-action="AsignarCadete">
                 <tr>
-                    <td hidden> <input name="idPedido" value = "@item.Nro"></td>
+                    <td hidden> <input name="idPedido" value="@item.Nro"></td>
                     <th scope="row">@item.Nro</th>
                     <td>@item.Cliente.Id</td>
                     <td>@item.Cliente.Nombre</td>
                     <td>@item.Cliente.Direccion</td>
                     <td>@item.Cliente.Telefono</td>
-                    <td>@item.Estado</td>
                     <td>@item.Obs</td>
+                    <td>@item.Estado</td>
                     <td>
                         <select name="idCadete" class="form-select" required>
-                            @*<option>Seleccionar un cadete...</option>*@
+                            <option>Seleccionar un cadete...</option>
                             @foreach (var cadete in Model.cadetes)
                             {
                                 @if (cadete.ListaPedido.Exists(a => a.Nro == item.Nro))
@@ -50,9 +49,9 @@
                                 }
                             }
                         </select>
+                        <button type="submit" class="btn btn-primary">Asignar Cadete</button>
                     </td>
-                    <td><button type="submit" class="btn btn-primary">Asignar Cadete</button></td>
-                    <td>@Html.ActionLink("Eliminar", "EliminarPedido", new {idPedido = item.Nro }, new { @class = "btnagre" })</td>
+                    <td>@Html.ActionLink("Eliminar", "EliminarPedido", new { idPedido = item.Nro }, new { @class = "btnagre" })</td>
                 </tr>                
             </form>
         }

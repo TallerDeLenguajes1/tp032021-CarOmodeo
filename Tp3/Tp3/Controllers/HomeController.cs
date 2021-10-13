@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Tp3.Models;
 using SistemaCadeteria.Modelo;
 using System.Collections.Generic;
+using NLog.Web;
 
 namespace Tp3.Controllers
 {
@@ -11,8 +12,8 @@ namespace Tp3.Controllers
     {
         
         private readonly ILogger<HomeController> _logger;
-        private readonly List<Cadete> cadetes;
-        private readonly List<Pedido> pedidos;
+        //private readonly List<Cadete> cadetes;
+        //private readonly List<Pedido> pedidos;
 
         public HomeController(ILogger<HomeController> logger)
         {

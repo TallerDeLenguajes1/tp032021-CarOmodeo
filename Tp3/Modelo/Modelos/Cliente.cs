@@ -24,5 +24,10 @@ namespace SistemaCadeteria.Modelo
             this.direccion = direccion;
             this.telefono = telefono;
         }
+
+        public Cliente()
+        {
+
+        }
     }
 }

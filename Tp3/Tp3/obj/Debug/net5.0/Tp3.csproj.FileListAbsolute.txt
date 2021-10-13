@@ -48,3 +48,6 @@ C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Vie
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Pedido\AltaPedido.cshtml.g.cs
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Pedido\MostrarPedido.cshtml.g.cs
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Cadete\ModificarCadete.cshtml.g.cs
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\bin\Debug\net5.0\NLog.dll
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
