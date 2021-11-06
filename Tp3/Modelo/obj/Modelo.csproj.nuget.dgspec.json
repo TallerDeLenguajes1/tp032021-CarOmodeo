@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[4.14.0, )"
             },
+            "System.Data.SQLite": {
+              "target": "Package",
+              "version": "[1.0.115.5, )"
+            },
             "System.Text.Json": {
               "target": "Package",
               "version": "[5.0.2, )"

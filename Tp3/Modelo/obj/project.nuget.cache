@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pns81pwZtkQmLGidVN6P8m1LmdUVxWhuNRxYPgp9QHvhE01Cq2Dq+WNEkKNgwOyXheZpCD0gcn2M2pnB/hQ06A==",
+  "dgSpecHash": "FC+O9OANlj/5M0eQfA8Jtm7aC13+dqq1qVIPxlDpdh3hKjIUaxpIA4LixUH6h4uqg04iinjyaiTTRAlHM9B4vg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Caro\\source\\repos\\tp032021-CarOmodeo\\Tp3\\Modelo\\Modelo.csproj",
   "expectedPackageFiles": [
@@ -29,7 +29,10 @@
     "C:\\Users\\Caro\\.nuget\\packages\\nlog\\4.7.11\\nlog.4.7.11.nupkg.sha512",
     "C:\\Users\\Caro\\.nuget\\packages\\nlog.extensions.logging\\1.7.4\\nlog.extensions.logging.1.7.4.nupkg.sha512",
     "C:\\Users\\Caro\\.nuget\\packages\\nlog.web.aspnetcore\\4.14.0\\nlog.web.aspnetcore.4.14.0.nupkg.sha512",
+    "C:\\Users\\Caro\\.nuget\\packages\\stub.system.data.sqlite.core.netstandard\\1.0.115.5\\stub.system.data.sqlite.core.netstandard.1.0.115.5.nupkg.sha512",
     "C:\\Users\\Caro\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\Caro\\.nuget\\packages\\system.data.sqlite\\1.0.115.5\\system.data.sqlite.1.0.115.5.nupkg.sha512",
+    "C:\\Users\\Caro\\.nuget\\packages\\system.data.sqlite.core\\1.0.115.5\\system.data.sqlite.core.1.0.115.5.nupkg.sha512",
     "C:\\Users\\Caro\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\Caro\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\Caro\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",

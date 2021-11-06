@@ -12,8 +12,7 @@ namespace Tp3
 {
     public class Startup
     {
-        static readonly DBTemporal DB = new DBTemporal(NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger());        
-
+        static readonly DBTemporal DB = new DBTemporal(NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger());
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,8 +23,12 @@ namespace Tp3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("Default");
+            RepositorioCadetes repoCadetes = new RepositorioCadetes(connectionString);
+
             services.AddControllersWithViews();
-            services.AddSingleton(DB);            
+            services.AddSingleton(repoCadetes);
+            services.AddSingleton(DB);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

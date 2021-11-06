@@ -25,7 +25,7 @@
             <td>@item.Nombre</td>
             <td>@item.Direccion</td>
             <td>@item.Telefono</td>
-            <td>@item.ListaPedido.Count()</td>
+            @*<td>@item.ListaPedido.Count()</td>*@
             <td>@Html.ActionLink("Pedidos", "MostrarPedido", "Pedido", new { id = item.Id }, new { @class = "btnagre" })</td>
             <td>@Html.ActionLink("Eliminar", "EliminarCadete", new { id = item.Id }, new { @class = "btnagre" })</td>
             <td>@Html.ActionLink("Modificar", "ModificarCadete", new { id = item.Id }, new { @class = "btnagre" })</td>

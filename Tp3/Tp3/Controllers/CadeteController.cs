@@ -11,13 +11,13 @@ namespace Tp3.Controllers
 {
     public class CadeteController : Controller
     {
-        private readonly DBTemporal _DB;
         private readonly ILogger<CadeteController> _logger;
+        private readonly RepositorioCadetes repoCadetes;
 
-        public CadeteController(ILogger<CadeteController> logger, DBTemporal _DB)
+        public CadeteController(ILogger<CadeteController> logger, RepositorioCadetes repoCadetes)
         {
             _logger = logger;
-            this._DB = _DB;
+            this.repoCadetes = repoCadetes;
         }
 
         public IActionResult Index()
@@ -40,14 +40,14 @@ namespace Tp3.Controllers
                     if (id == 0)
                     {
                         //int id = _DB.cadeteria.cadetes.Count() + 1;
-                        id = _DB.cadeteria.cadetes.Last().Id + 1;
+                        //id = _DB.cadeteria.cadetes.Last().Id + 1;
                         Cadete nuevoCadete = new Cadete(id, nombre, direccion, tel);
-                        _DB.guardarCadete(nuevoCadete);
+                        repoCadetes.insertCadete(nuevoCadete);
                     }
                     else
                     {
                         Cadete cadete = new Cadete(id, nombre, direccion, tel);
-                        _DB.modificarInfoCadete(cadete);
+                        repoCadetes.updateCadete(cadete);
                     }
                 }
             }
@@ -62,27 +62,18 @@ namespace Tp3.Controllers
                 _logger.LogError(mensaje);
             }
             
-            return View(_DB.cadeteria.cadetes);
+            return View(repoCadetes.getAllCadetes());
         }
 
         public IActionResult EliminarCadete(int id)
         {
-            int i = 0;
-            foreach (var item in _DB.cadeteria.cadetes)
-            {
-                if(item.Id == id)
-                {
-                    _DB.borrarCadete(i);
-                    break;
-                }
-                i++;
-            }
-            return View("VistaCadete", _DB.cadeteria.cadetes);
+            repoCadetes.deleteCadete(id);
+            return View("VistaCadete", repoCadetes.getAllCadetes());
         }
 
         public IActionResult ModificarCadete(int id)
         {
-            Cadete cadete = _DB.cadeteria.cadetes.Where(a => a.Id == id).First();
+            Cadete cadete = repoCadetes.selectCadete(id);
             return View(cadete);
         }
     }
