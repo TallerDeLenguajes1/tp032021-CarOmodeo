@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="text-center">
+    <h1 class="display-4">Cadeteria El Correcaminos</h1>
+    <form asp-action="AltaCadete" asp-controller="Cadete" method="post">
+        <legend>Alta Cadete</legend>
+        <label>Desea dar de alta un cadete?</label>
+        <input type="submit" value="Si" />
+    </form>
+
+    <form asp-action="AltaPedido" asp-controller="Pedido" method="post">
+        <legend>Generar Pedido</legend>
+        <label>Desea generar un pedido?</label>
+        <input type="submit" value="Si" />
+    </form>
+</div>
