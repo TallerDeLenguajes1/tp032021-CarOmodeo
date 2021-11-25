@@ -1,65 +1,89 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Tp3.Models.ViewModels.PedidoIndexViewModel
+
 @{
+    ViewData["Title"] = "Lista de Pedidos";
 }
-@model SistemaCadeteria.Modelo.Cadeteria
 
+<h1>VistaPedido</h1>
 
+<p>
+    <a asp-action="Create">Crear Nuevo Pedido</a>
+</p>
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Nro</th>
-            <th scope="col">DNI</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Dirección</th>
-            <th scope="col">Teléfono</th>
-            <th scope="col">Observaciones</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Cadete</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Observaciones</th>
+            <th>Estado</th>
+            <th>Cadete</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-
-        @foreach (var item in Model.pedidos)
-        {
-            <form asp-action="AsignarCadete">
-                <tr>
-                    <td hidden> <input name="idPedido" value="@item.Nro"></td>
-                    <th scope="row">@item.Nro</th>
-                    <td>@item.Cliente.Id</td>
-                    <td>@item.Cliente.Nombre</td>
-                    <td>@item.Cliente.Direccion</td>
-                    <td>@item.Cliente.Telefono</td>
-                    <td>@item.Obs</td>
-                    <td>@item.Estado</td>
-                    <td>
-                        <select name="idCadete" class="form-select" required>
-                            <option>Seleccionar un cadete...</option>
-                            @foreach (var cadete in Model.cadetes)
-                            {
-                                @if (cadete.ListaPedido.Exists(a => a.Nro == item.Nro))
-                                {
-                                    <option selected value="@cadete.Id">@cadete.Nombre</option>
-                                }
-                                else
+@foreach (var item in Model.Pedidos) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Obs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @if (item.Estado.Equals(SistemaCadeteria.Modelo.EstadoPedido.Ingresado))
+                {
+                    <form asp-action="asignarCadete">
+                        <fieldset>
+                            <input type="hidden" id="idPedido" name="idPedido" value="@item.Nro">
+                            <select class="custom-select-sm" name="idCadete">
+                                <option selected>Seleccionar</option>
+                                @foreach (var cadete in Model.Cadetes)
                                 {
                                     <option value="@cadete.Id">@cadete.Nombre</option>
                                 }
-                            }
-                        </select>
-                        <button type="submit" class="btn btn-primary">Asignar Cadete</button>
-                    </td>
-                    <td>@Html.ActionLink("Eliminar", "EliminarPedido", new { idPedido = item.Nro }, new { @class = "btnagre" })</td>
-                </tr>                
-            </form>
-        }
-        </tbody>
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-info">Asignar</button>
+                        </fieldset>
+                    </form>
+                }
+                else
+                {
+                    <form asp-action="asignarCadete">
+                        <fieldset>
+                            <input type="hidden" id="idPedido" name="idPedido" value="@item.Nro">
+                            <select class="custom-select-sm" name="idCadete">
+                                <option>Seleccionar</option>
+                                @foreach (var cadete in Model.Cadetes)
+                                {
+                                    if (cadete.Id == item.IdCadete)
+                                    {
+                                        <option value="@cadete.Id" selected>@cadete.Nombre</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@cadete.Id">@cadete.Nombre</option>
+                                    }
+                                }
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-info">Asignar</button>
+                        </fieldset>
+                    </form>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Borrar", "EliminarPedido", new { idPedido = item.Nro })
+            </td>
+        </tr>
+}
+    </tbody>
 </table>
-
-@*<form asp-action="AltaPedido" asp-controller="Home" method="post">
-        <input type="submit" value="Agragar Nuevo Pedido" />
-    </form>*@
-
-<a class="link" asp-controller="Pedido" asp-action="AltaPedido">Crear Nuevo Pedido</a>

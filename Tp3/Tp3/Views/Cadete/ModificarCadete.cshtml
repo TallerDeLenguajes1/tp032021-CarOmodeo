@@ -7,7 +7,7 @@
 
 <h2>Modificar Cadete</h2>
 
-<form asp-action="VistaCadete" asp-controller="Cadete" method="post">
+<form asp-action="ModificarCadete" asp-controller="Cadete" method="post">
     <fieldset>
         <div>
             <input hidden name="id" type="text" value="@Model.Id" />
@@ -22,7 +22,7 @@
         </div>
         <div class="mb-3">
             <label for="disabledText" class="form-label">Telefono</label>
-            <input type="text" name="tel" id="disabledText" class="form-control" value=" @Model.Telefono">
+            <input type="text" name="telefono" id="disabledText" class="form-control" value=" @Model.Telefono">
         </div>
 
         <button type="submit" class="btn btn-primary">Enviar!!</button>

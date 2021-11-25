@@ -5,106 +5,208 @@ using System.Linq;
 using NLog.Web;
 using Microsoft.Extensions.Logging;
 using System;
+using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
+using Tp3.Models;
+using AutoMapper;
+using Tp3.Models.ViewModels;
 
 namespace Tp3.Controllers
 {
     public class PedidoController : Controller
     {
-        private readonly DBTemporal _DB;
+        //private readonly DBTemporal _DB;
+        private readonly IRepositorioPedidos repoPedidos;
+        private readonly RepositorioUsuario repoUsuario;
         private readonly ILogger _logger;
-        static int id;
+        private readonly IMapper mapper;
+        private readonly IRepositorioCadetes reposCadetes;
 
-        public PedidoController(ILogger<PedidoController> logger, DBTemporal _DB)
+        public PedidoController(ILogger<PedidoController> logger, IRepositorioPedidos repositorioPedidos, RepositorioUsuario repositorioUsuario, IMapper mapper, IRepositorioCadetes repositorioCadetes)
         {
             _logger = logger;
-            this._DB = _DB;
-            id = _DB.cadeteria.pedidos.Count();
+            //this._DB = _DB;
+            //id = _DB.cadeteria.pedidos.Count();
+            repoPedidos = repositorioPedidos;
+            repoUsuario = repositorioUsuario;
+            reposCadetes = repositorioCadetes;
+            this.mapper = mapper;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult AltaPedido()
-        {
-            return View();
-        }
-
-        public IActionResult VistaPedido(string obs, string nombre, string direccion, string tel, int dni)
+        public IActionResult Create()
         {
             try
             {
-                Pedido nuevoPedido;
-                if (nombre != null && direccion != null && tel != null && dni != 0 && obs != null)
+                int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
+                if (repoUsuario.identidicadorValido(identidicador))
                 {
-                    id++;
-                    nuevoPedido = new Pedido(id, obs, nombre, direccion, tel, dni);
-                    _DB.cadeteria.pedidos.Add(nuevoPedido);
+                    return View("AltaPedido", new Pedido());
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch(Exception ex)
+            {
+                guardarmensajeError(ex);
+                return RedirectToAction("Index", "Home");
+            }            
+        }
+
+        public IActionResult AltaPedido(Pedido nuevoPedido)
+        {
+            try
+            {
+                int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
+                if (repoUsuario.identidicadorValido(identidicador))
+                {
+                    repoPedidos.insertPedido(nuevoPedido);
+                    return RedirectToAction(nameof(VistaPedido));
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                guardarmensajeError(ex);
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public IActionResult VistaPedido()
+        {
+            try
+            {
+                int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
+                if (repoUsuario.identidicadorValido(identidicador))
+                {
+                    var pedidos = mapper.Map<List<PedidoViewModel>>(repoPedidos.getAllPedidos());
+                    var cadetes = mapper.Map<List<CadeteViewModel>>(reposCadetes.getAllCadetes());
+
+                    PedidoIndexViewModel pedidosYCadetes = new PedidoIndexViewModel(pedidos,cadetes);
+                    return View(pedidosYCadetes);                    
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
                 }
             }    
             catch(Exception ex)
             {
-                string mensaje = "Error: " + ex.Message;
-                if (ex.InnerException != null)
-                {
-                    mensaje = mensaje + " Inner exception: " + ex.InnerException.Message;
-                }
-                mensaje += "Stack trace: " + ex.StackTrace;
-                _logger.LogError(mensaje);
+                guardarmensajeError(ex);
+                return RedirectToAction("Index", "Home");
             }
-
-            return View(_DB.cadeteria);
         }
 
-        public IActionResult MostrarPedido(int id)
-        { 
-            return View(_DB.cadeteria.cadetes[_DB.cadeteria.cadetes.IndexOf(_DB.cadeteria.cadetes.Where(a => a.Id == id).First())]);
+        public IActionResult Edit(int idPedido)
+        {
+            try
+            {
+                int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
+                if (repoUsuario.identidicadorValido(identidicador))
+                {                    
+                    return View("MostrarPedido", repoPedidos.selectPedido(idPedido));
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                guardarmensajeError(ex);
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public IActionResult MostrarPedido(Pedido pedido)
+        {
+            try
+            {
+                int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
+                if (repoUsuario.identidicadorValido(identidicador))
+                {
+                    repoPedidos.updatePedido(pedido);
+                    return RedirectToAction(nameof(VistaPedido));
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                guardarmensajeError(ex);
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public IActionResult AsignarCadete(int idPedido, int idCadete)
-        {            
+        {
             try
             {
-                Pedido pedido = _DB.cadeteria.pedidos.Where(a => a.Nro == idPedido).First();
-                quitarPedidoCadete(pedido);
-
-                Cadete cadete = _DB.cadeteria.cadetes.Where(a => a.Id == idCadete).First();
-                cadete.ListaPedido.Add(pedido);
-                pedido.Estado = EstadoPedido.Aceptado;
-                _DB.actualizarBD();
-            }
-            catch(Exception ex)
-            {
-                string mensaje = "Error: " + ex.Message;
-                if (ex.InnerException != null)
+                int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
+                if (repoUsuario.identidicadorValido(identidicador))
                 {
-                    mensaje = mensaje + " Inner exception: " + ex.InnerException.Message;
+                    repoPedidos.asignarCadeteAPedido(idPedido, idCadete);
+                    return RedirectToAction(nameof(VistaPedido));
                 }
-                mensaje += "Stack trace: " + ex.StackTrace;
-                _logger.LogError(mensaje);
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-
-            return View("VistaPedido", _DB.cadeteria);
+            catch (Exception ex)
+            {
+                guardarmensajeError(ex);
+                return RedirectToAction("Index", "Home");
+            }           
         }
 
         public IActionResult EliminarPedido(int idPedido)
         {
-            eliminarUnPedido(idPedido);
-            _DB.actualizarBD();
-            return View("VistaPedido", _DB.cadeteria);
+            try
+            {
+                int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
+                if (repoUsuario.identidicadorValido(identidicador))
+                {
+                    repoPedidos.deletePedido(idPedido);
+                    return RedirectToAction(nameof(VistaPedido));
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                guardarmensajeError(ex);
+                return RedirectToAction("Index", "Home");
+            }            
         }
 
-        public void eliminarUnPedido(int id)
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
         {
-            Pedido pedido =_DB.cadeteria.pedidos.Where(a => a.Nro == id).First();
-            _DB.cadeteria.pedidos.Remove(pedido);
-
-            quitarPedidoCadete(pedido);
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public void quitarPedidoCadete(Pedido pedido)
+        private void guardarmensajeError(Exception ex)
         {
-            _DB.cadeteria.cadetes.ForEach(cad => cad.ListaPedido.Remove(pedido));
+            string mensaje = "Error: " + ex.Message;
+                if (ex.InnerException != null)
+                {
+                    mensaje = mensaje + " Inner exception: " + ex.InnerException.Message;
+                }
+    mensaje += "Stack trace: " + ex.StackTrace;
+                _logger.LogError(mensaje);
         }
     }
 }

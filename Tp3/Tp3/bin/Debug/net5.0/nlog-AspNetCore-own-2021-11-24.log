@@ -1,0 +1,5 @@
+2021-11-24 14:50:46.7371|0|ERROR|Tp3.Startup|Error Message: No current row Stack trace:    at System.Data.SQLite.SQLiteDataReader.CheckValidRow()
+   at System.Data.SQLite.SQLiteDataReader.VerifyForGet()
+   at System.Data.SQLite.SQLiteDataReader.GetValue(Int32 i)
+   at System.Data.SQLite.SQLiteDataReader.get_Item(String name)
+   at SistemaCadeteria.Modelo.RepositorioUsuario.GetUsuarioID(String nombre, String password) in C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Modelo\Modelos\RepositorioUsuario.cs:line 69 |url: |action: |SistemaCadeteria.Modelo.RepositorioUsuario.GetUsuarioID| body: 

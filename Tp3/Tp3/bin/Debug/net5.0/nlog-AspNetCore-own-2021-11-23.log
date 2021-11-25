@@ -1,0 +1,9 @@
+2021-11-23 18:51:53.6112|0|ERROR|Tp3.Startup|Error Message: SQL logic error
+no such column: usuarioID Stack trace:    at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
+   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
+   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
+   at System.Data.SQLite.SQLiteDataReader.NextResult()
+   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
+   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.SQLite.SQLiteCommand.ExecuteReader()
+   at SistemaCadeteria.Modelo.RepositorioUsuario.GetUsuarioID(String nombre, String password) in C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Modelo\Modelos\RepositorioUsuario.cs:line 66 |url: |action: |SistemaCadeteria.Modelo.RepositorioUsuario.GetUsuarioID| body: 

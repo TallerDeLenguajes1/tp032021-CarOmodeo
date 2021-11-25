@@ -6,10 +6,10 @@ using SistemaCadeteria.Modelo;
 
 namespace SistemaCadeteria.Modelo
 {
-    public class RepositorioCadetes
+    public class RepositorioCadetes : IRepositorioCadetes
     {
         private readonly string connectionString;
-        private readonly SQLiteConnection conexion;
+        //private readonly SQLiteConnection conexion;
 
         public RepositorioCadetes(string connectionString)
         {
@@ -43,16 +43,18 @@ namespace SistemaCadeteria.Modelo
 
                             listaCadetes.Add(cadete);
                         }
+
+                        DataReader.Close();
                     }
-                    
+
                     conexion.Close();
                 }
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 var mensaje = "Mensaje de error" + ex.Message;
             }
-            
+
             return listaCadetes;
         }
 
@@ -119,7 +121,7 @@ namespace SistemaCadeteria.Modelo
                                        Cadetes (cadeteNombre, cadeteTelefono, cadeteDireccion, cadeteActivo)
                                        VALUES (@nombre, @telefono, @direccion, 1)";
 
-                using(var conexion = new SQLiteConnection(connectionString))
+                using (var conexion = new SQLiteConnection(connectionString))
                 {
                     using (SQLiteCommand command = new SQLiteCommand(instruccion, conexion))
                     {
@@ -133,7 +135,7 @@ namespace SistemaCadeteria.Modelo
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var mensaje = "Mensaje de error" + ex.Message;
             }
@@ -143,9 +145,9 @@ namespace SistemaCadeteria.Modelo
         {
             string intruccion = "SELECT * FROM Cadetes WHERE cadeteID = @id";
 
-            using(var conexion = new SQLiteConnection(connectionString))
+            using (var conexion = new SQLiteConnection(connectionString))
             {
-                using(SQLiteCommand command = new SQLiteCommand(intruccion, conexion))
+                using (SQLiteCommand command = new SQLiteCommand(intruccion, conexion))
                 {
                     command.Parameters.AddWithValue("@id", id);
 
@@ -153,7 +155,7 @@ namespace SistemaCadeteria.Modelo
 
                     var DataReader = command.ExecuteReader();
                     DataReader.Read();
-                    
+
                     Cadete cadete = new Cadete()
                     {
                         Id = Convert.ToInt32(DataReader["cadeteID"]),
@@ -162,6 +164,7 @@ namespace SistemaCadeteria.Modelo
                         Direccion = DataReader["cadeteDireccion"].ToString(),
                     };
 
+                    DataReader.Close();
                     conexion.Close();
 
                     return cadete;

@@ -1,26 +1,42 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model SistemaCadeteria.Modelo.Cadete
+
 @{
+    ViewData["Title"] = "AltaCadete";
 }
 
-<h2>Dar de Alta un Cadete</h2>
+<h1>AltaCadete</h1>
 
-<form asp-action="VistaCadete" asp-controller="Cadete" method="post">
-    <fieldset>
-        <div class="mb-3">
-            <label for="disabledText" class="form-label">Nombre</label>
-            <input type="text" name="nombre" id="disabledText" class="form-control" placeholder="Escribir nombre..." required>
-        </div>
-        <div class="mb-3">
-            <label for="disabledText" class="form-label">Direccion</label>
-            <input type="text" name="direccion" id="disabledText" class="form-control" placeholder="Escribir direccion..." required>
-        </div>
-        <div class="mb-3">
-            <label for="disabledText" class="form-label">Telefono</label>
-            <input type="tel" name="tel" id="disabledText" class="form-control" placeholder="Escribir telefono..." required>
-        </div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AltaCadete">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Enviar!!" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
-        <button type="submit" class="btn btn-primary">Enviar!!</button>
-    </fieldset>
-</form>
+<div>
+    <a asp-action="VistaCadete">Lista de Cadetes!!</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

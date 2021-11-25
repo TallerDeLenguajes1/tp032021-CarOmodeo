@@ -16,7 +16,7 @@ namespace SistemaCadeteria.Modelo
             _logger = logger;
             cadeteria = new Cadeteria();
             cadeteria.cadetes = leerArchivoCadetes();
-            agregarPedidosGuardados();
+            //agregarPedidosGuardados();
         }
 
         public List<Cadete> leerArchivoCadetes()
@@ -99,7 +99,7 @@ namespace SistemaCadeteria.Modelo
             guardarJson(cadeteria.cadetes);
         }
 
-        private void agregarPedidosGuardados()
+        /*private void agregarPedidosGuardados()
         {
             foreach(var cadete in cadeteria.cadetes)
             {
@@ -108,7 +108,7 @@ namespace SistemaCadeteria.Modelo
                     cadeteria.pedidos.Add(pedido);
                 }
             }
-        }
+        }*/
     }
 
     

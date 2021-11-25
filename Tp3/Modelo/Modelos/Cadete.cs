@@ -25,7 +25,7 @@ namespace SistemaCadeteria.Modelo
             this.nombre = nombre;
             this.direccion = direccion;
             this.telefono = telefono;
-            listaPedido = new List<Pedido>();
+            //listaPedido = new List<Pedido>();
         }
 
         public Cadete()
