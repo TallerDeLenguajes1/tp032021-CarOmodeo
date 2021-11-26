@@ -61,14 +61,44 @@ namespace SistemaCadeteria.Modelo
             return listaPedidos;
         }
 
+        public void updateCliente(Cliente modificarCliente)
+        {
+            try
+            {
+                string instruccion = @"UPDATE Clientes
+                                        SET clienteNombre = @nombre, clienteDireccion = @direccion,
+                                        clienteTelefono = @telefono
+                                        WHERE clienteDNI = @clienteID";
+
+                using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(instruccion, conexion))
+                    {
+                        command.Parameters.AddWithValue("@clienteID", modificarCliente.Id);
+                        command.Parameters.AddWithValue("@nombre", modificarCliente.Nombre);
+                        command.Parameters.AddWithValue("@telefono", modificarCliente.Telefono);
+                        command.Parameters.AddWithValue("@direccion", modificarCliente.Direccion);
+
+                        conexion.Open();
+                        command.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var mensaje = "Mensaje de error" + ex.Message;
+            }
+        }
+
         public void updatePedido(Pedido modificarPedido)
         {
             try
             {
-                string instruccion = @"UPDATE Pedido
-                                        INNER JOIN Cliente using(clienteID)
-                                        SET pedidoObservaion = @observacion, clienteNombre = @nombre, clienteDireccion = @direccion,
-                                        clienteTelefono = @telefono, clienteDNI = @dni, pedidoEstado = @estado
+                updateCliente(modificarPedido.Cliente);
+
+                string instruccion = @"UPDATE Pedidos
+                                        SET pedidoObservacion = @observacion
                                         WHERE pedidoID = @pedidoID";
 
                 using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
@@ -77,11 +107,7 @@ namespace SistemaCadeteria.Modelo
                     {
                         command.Parameters.AddWithValue("@pedidoID", modificarPedido.Nro);
                         command.Parameters.AddWithValue("@observacion", modificarPedido.Obs);
-                        command.Parameters.AddWithValue("@estado", modificarPedido.Estado);
-                        command.Parameters.AddWithValue("@nombre", modificarPedido.Cliente.Nombre);
-                        command.Parameters.AddWithValue("@telefono", modificarPedido.Cliente.Telefono);
-                        command.Parameters.AddWithValue("@direccion", modificarPedido.Cliente.Direccion);
-
+                        
                         conexion.Open();
                         command.ExecuteNonQuery();
                         conexion.Close();
@@ -193,7 +219,7 @@ namespace SistemaCadeteria.Modelo
             {
                 string instruccion = @"SELECT pedidoID, pedidoObservacion, clienteDNI, clienteNombre, clienteDireccion,
                                          clienteTelefono, pedidoEstado FROM Pedidos 
-                                         INNER JOIN Cliente using(clienteID)
+                                         INNER JOIN Clientes using(clienteID)
                                          WHERE pedidoID = @id";
 
                 using (SQLiteConnection conexion = new SQLiteConnection(connectionString))

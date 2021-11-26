@@ -40,7 +40,7 @@ namespace Tp3.Controllers
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador) && ModelState.IsValid)
                 {
-                    return View("AltaCadete", new Cadete());
+                    return View("AltaCadete", new AltaCadeteViewModel());
                 }
                 else
                 {
@@ -54,13 +54,14 @@ namespace Tp3.Controllers
             }
         }
 
-        public IActionResult AltaCadete(Cadete nuevoCadete)
+        public IActionResult AltaCadete(AltaCadeteViewModel nuevoCadeteViewModel)
         {
             try
             {
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador) && ModelState.IsValid)
                 {
+                    Cadete nuevoCadete = mapper.Map<Cadete>(nuevoCadeteViewModel);
                     repoCadetes.insertCadete(nuevoCadete);
 
                     return RedirectToAction(nameof(VistaCadete));
@@ -128,7 +129,8 @@ namespace Tp3.Controllers
                 if (repoUsuario.identidicadorValido(identidicador) && ModelState.IsValid)
                 {
                     Cadete cadete = repoCadetes.selectCadete(id);
-                    return View("ModificarCadete", cadete);
+
+                    return View("ModificarCadete", mapper.Map<ModificarCadeteViewModel>(cadete));
                 }
                 else
                 {
@@ -142,14 +144,14 @@ namespace Tp3.Controllers
             }            
         }
 
-        public IActionResult ModificarCadete(Cadete cadete)
+        public IActionResult ModificarCadete(ModificarCadeteViewModel cadeteViewModel)
         {
             try
             {
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador) && ModelState.IsValid)
                 {
-                    repoCadetes.updateCadete(cadete);
+                    repoCadetes.updateCadete(mapper.Map<Cadete>(cadeteViewModel));
                     return RedirectToAction(nameof(VistaCadete));
                 }
                 else

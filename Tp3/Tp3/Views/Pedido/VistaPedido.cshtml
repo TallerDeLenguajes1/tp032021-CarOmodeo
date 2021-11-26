@@ -81,6 +81,7 @@
                 }
             </td>
             <td>
+                @Html.ActionLink("Modificar", "Edit", new { idPedido = item.Nro }) | 
                 @Html.ActionLink("Borrar", "EliminarPedido", new { idPedido = item.Nro })
             </td>
         </tr>

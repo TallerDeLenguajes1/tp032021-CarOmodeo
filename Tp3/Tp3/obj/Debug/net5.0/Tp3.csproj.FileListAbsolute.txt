@@ -149,3 +149,4 @@ C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\bin\Debug\net5.0\zh-Hans\M
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Pedido\ModificarPedido.cshtml.g.cs

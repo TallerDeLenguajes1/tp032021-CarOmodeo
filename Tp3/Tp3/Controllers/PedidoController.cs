@@ -44,7 +44,7 @@ namespace Tp3.Controllers
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador))
                 {
-                    return View("AltaPedido", new Pedido());
+                    return View("AltaPedido", new AltaPedidoViewModel());
                 }
                 else
                 {
@@ -58,14 +58,14 @@ namespace Tp3.Controllers
             }            
         }
 
-        public IActionResult AltaPedido(Pedido nuevoPedido)
+        public IActionResult AltaPedido(AltaPedidoViewModel nuevoPedido)
         {
             try
             {
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador))
                 {
-                    repoPedidos.insertPedido(nuevoPedido);
+                    repoPedidos.insertPedido(mapper.Map<Pedido>(nuevoPedido));
                     return RedirectToAction(nameof(VistaPedido));
                 }
                 else
@@ -112,7 +112,7 @@ namespace Tp3.Controllers
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador))
                 {                    
-                    return View("MostrarPedido", repoPedidos.selectPedido(idPedido));
+                    return View("ModificarPedido",  mapper.Map<ModificarPedidoViewModel>(repoPedidos.selectPedido(idPedido)));
                 }
                 else
                 {
@@ -126,14 +126,14 @@ namespace Tp3.Controllers
             }
         }
 
-        public IActionResult MostrarPedido(Pedido pedido)
+        public IActionResult ModificarPedido(ModificarPedidoViewModel pedido)
         {
             try
             {
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador))
                 {
-                    repoPedidos.updatePedido(pedido);
+                    repoPedidos.updatePedido(mapper.Map<Pedido>(pedido));
                     return RedirectToAction(nameof(VistaPedido));
                 }
                 else
@@ -148,7 +148,29 @@ namespace Tp3.Controllers
             }
         }
 
-        public IActionResult AsignarCadete(int idPedido, int idCadete)
+            /*public IActionResult MostrarPedido(Pedido pedido)
+            {
+                try
+                {
+                    int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
+                    if (repoUsuario.identidicadorValido(identidicador))
+                    {
+                        repoPedidos.updatePedido(pedido);
+                        return RedirectToAction(nameof(VistaPedido));
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    guardarmensajeError(ex);
+                    return RedirectToAction("Index", "Home");
+                }
+            }*/
+
+            public IActionResult AsignarCadete(int idPedido, int idCadete)
         {
             try
             {

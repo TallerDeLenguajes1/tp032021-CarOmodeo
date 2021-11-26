@@ -12,12 +12,12 @@ namespace Tp3
             CreateMap<Cadete, CadeteViewModel>().ReverseMap();
             CreateMap<Cadete, EliminarCadeteViewModel>().ReverseMap();
             CreateMap<Cadete, ModificarCadeteViewModel>().ReverseMap();
-            CreateMap<Cadete, VistaCadeteViewModel>().ReverseMap();
 
             //Mapper de Pedido
             CreateMap<Pedido, PedidoViewModel>().ReverseMap();
             CreateMap<Pedido, AltaPedidoViewModel>().ReverseMap();
-            
+            CreateMap<Pedido, ModificarPedidoViewModel>().ReverseMap();
+
             //Mapper de Cliente
             CreateMap<Cliente, ClienteViewModel>().ReverseMap();
         }

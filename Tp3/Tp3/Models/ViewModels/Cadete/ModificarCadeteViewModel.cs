@@ -19,8 +19,8 @@ namespace Tp3.Models.ViewModels
         [StringLength(200)]
         public string Direccion { get; set; }
 
-        [Required]
-        [Phone]
+        [Required(ErrorMessage = "Ingrese un Teléfono")]
+        [Phone]       
         public string Telefono { get; set; }
 
         public ModificarCadeteViewModel()

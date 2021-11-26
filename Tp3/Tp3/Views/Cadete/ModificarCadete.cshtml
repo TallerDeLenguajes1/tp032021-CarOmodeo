@@ -1,30 +1,48 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Tp3.Models.ViewModels.ModificarCadeteViewModel
+
 @{
+    ViewData["Title"] = "ModificarCadete";
 }
-@model SistemaCadeteria.Modelo.Cadete
 
-<h2>Modificar Cadete</h2>
+<h1>ModificarCadete</h1>
 
-<form asp-action="ModificarCadete" asp-controller="Cadete" method="post">
-    <fieldset>
-        <div>
-            <input hidden name="id" type="text" value="@Model.Id" />
-        </div>
-        <div class="mb-3">
-            <label for="disabledText" class="form-label">Nombre</label>
-            <input type="text" name="nombre" id="disabledText" class="form-control" value="@Model.Nombre">
-        </div>
-        <div class="mb-3">
-            <label for="disabledText" class="form-label">Direccion</label>
-            <input type="text" name="direccion" id="disabledText" class="form-control" value="@Model.Direccion ">
-        </div>
-        <div class="mb-3">
-            <label for="disabledText" class="form-label">Telefono</label>
-            <input type="text" name="telefono" id="disabledText" class="form-control" value=" @Model.Telefono">
-        </div>
+<h4>ModificarCadeteViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ModificarCadete">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input hidden asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
-        <button type="submit" class="btn btn-primary">Enviar!!</button>
-    </fieldset>
-</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
