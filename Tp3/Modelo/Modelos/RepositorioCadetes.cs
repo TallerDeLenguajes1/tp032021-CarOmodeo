@@ -143,33 +143,42 @@ namespace SistemaCadeteria.Modelo
 
         public Cadete selectCadete(int id)
         {
-            string intruccion = "SELECT * FROM Cadetes WHERE cadeteID = @id";
-
-            using (var conexion = new SQLiteConnection(connectionString))
+            try
             {
-                using (SQLiteCommand command = new SQLiteCommand(intruccion, conexion))
+                string intruccion = "SELECT * FROM Cadetes WHERE cadeteID = @id";
+
+                using (var conexion = new SQLiteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-
-                    conexion.Open();
-
-                    var DataReader = command.ExecuteReader();
-                    DataReader.Read();
-
-                    Cadete cadete = new Cadete()
+                    using (SQLiteCommand command = new SQLiteCommand(intruccion, conexion))
                     {
-                        Id = Convert.ToInt32(DataReader["cadeteID"]),
-                        Nombre = DataReader["cadeteNombre"].ToString(),
-                        Telefono = DataReader["cadeteTelefono"].ToString(),
-                        Direccion = DataReader["cadeteDireccion"].ToString(),
-                    };
+                        command.Parameters.AddWithValue("@id", id);
 
-                    DataReader.Close();
-                    conexion.Close();
+                        conexion.Open();
 
-                    return cadete;
-                }
+                        var DataReader = command.ExecuteReader();
+                        DataReader.Read();
+
+                        Cadete cadete = new Cadete()
+                        {
+                            Id = Convert.ToInt32(DataReader["cadeteID"]),
+                            Nombre = DataReader["cadeteNombre"].ToString(),
+                            Telefono = DataReader["cadeteTelefono"].ToString(),
+                            Direccion = DataReader["cadeteDireccion"].ToString(),
+                        };
+
+                        DataReader.Close();
+                        conexion.Close();
+
+                        return cadete;
+                    }
+                }                 
             }
+            catch(Exception ex)
+            {
+                var mensaje = "Mensaje de error" + ex.Message;
+                return new Cadete();
+            }
+            
         }
     }
 }

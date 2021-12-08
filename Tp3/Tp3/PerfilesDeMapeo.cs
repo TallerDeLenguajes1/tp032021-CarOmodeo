@@ -20,6 +20,11 @@ namespace Tp3
 
             //Mapper de Cliente
             CreateMap<Cliente, ClienteViewModel>().ReverseMap();
+
+            //Mapper de Usuario
+            CreateMap<Usuario, UsuarioViewModel>().ReverseMap();
+            CreateMap<Usuario, AltaUsuarioViewModel>().ReverseMap();
+            CreateMap<Usuario, ModificarUsuarioViewModel>().ReverseMap();
         }
     }
 }

@@ -223,12 +223,12 @@ namespace Tp3.Controllers
         private void guardarmensajeError(Exception ex)
         {
             string mensaje = "Error: " + ex.Message;
-                if (ex.InnerException != null)
-                {
-                    mensaje = mensaje + " Inner exception: " + ex.InnerException.Message;
-                }
-    mensaje += "Stack trace: " + ex.StackTrace;
-                _logger.LogError(mensaje);
+            if (ex.InnerException != null)
+            {
+                mensaje = mensaje + " Inner exception: " + ex.InnerException.Message;
+            }
+            mensaje += "Stack trace: " + ex.StackTrace;
+            _logger.LogError(mensaje);
         }
     }
 }
