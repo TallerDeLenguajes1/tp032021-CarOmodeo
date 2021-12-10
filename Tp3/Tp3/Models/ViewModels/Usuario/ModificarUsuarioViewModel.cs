@@ -19,6 +19,9 @@ namespace Tp3.Models.ViewModels
         [Display(Name ="Contraseña")]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "Seleccione el Rol")]
+        public string Rol { get; set; }
+
         public ModificarUsuarioViewModel()
         {
 

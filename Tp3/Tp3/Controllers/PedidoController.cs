@@ -44,6 +44,7 @@ namespace Tp3.Controllers
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador))
                 {
+                    ViewBag.rol = devolverRol();
                     return View("AltaPedido", new AltaPedidoViewModel());
                 }
                 else
@@ -58,6 +59,8 @@ namespace Tp3.Controllers
             }            
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AltaPedido(AltaPedidoViewModel nuevoPedido)
         {
             try
@@ -66,6 +69,8 @@ namespace Tp3.Controllers
                 if (repoUsuario.identidicadorValido(identidicador))
                 {
                     repoPedidos.insertPedido(mapper.Map<Pedido>(nuevoPedido));
+
+                    ViewBag.rol = devolverRol();
                     return RedirectToAction(nameof(VistaPedido));
                 }
                 else
@@ -91,6 +96,8 @@ namespace Tp3.Controllers
                     var cadetes = mapper.Map<List<CadeteViewModel>>(reposCadetes.getAllCadetes());
 
                     PedidoIndexViewModel pedidosYCadetes = new PedidoIndexViewModel(pedidos,cadetes);
+
+                    ViewBag.rol = devolverRol();
                     return View(pedidosYCadetes);                    
                 }
                 else
@@ -111,7 +118,8 @@ namespace Tp3.Controllers
             {
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador))
-                {                    
+                {
+                    ViewBag.rol = devolverRol();
                     return View("ModificarPedido",  mapper.Map<ModificarPedidoViewModel>(repoPedidos.selectPedido(idPedido)));
                 }
                 else
@@ -126,6 +134,8 @@ namespace Tp3.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ModificarPedido(ModificarPedidoViewModel pedido)
         {
             try
@@ -134,6 +144,8 @@ namespace Tp3.Controllers
                 if (repoUsuario.identidicadorValido(identidicador))
                 {
                     repoPedidos.updatePedido(mapper.Map<Pedido>(pedido));
+
+                    ViewBag.rol = devolverRol();
                     return RedirectToAction(nameof(VistaPedido));
                 }
                 else
@@ -170,7 +182,7 @@ namespace Tp3.Controllers
                 }
             }*/
 
-            public IActionResult AsignarCadete(int idPedido, int idCadete)
+        public IActionResult AsignarCadete(int idPedido, int idCadete)
         {
             try
             {
@@ -178,6 +190,8 @@ namespace Tp3.Controllers
                 if (repoUsuario.identidicadorValido(identidicador))
                 {
                     repoPedidos.asignarCadeteAPedido(idPedido, idCadete);
+
+                    ViewBag.rol = devolverRol();
                     return RedirectToAction(nameof(VistaPedido));
                 }
                 else
@@ -200,6 +214,8 @@ namespace Tp3.Controllers
                 if (repoUsuario.identidicadorValido(identidicador))
                 {
                     repoPedidos.deletePedido(idPedido);
+
+                    ViewBag.rol = devolverRol();
                     return RedirectToAction(nameof(VistaPedido));
                 }
                 else
@@ -217,6 +233,7 @@ namespace Tp3.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            ViewBag.rol = devolverRol();
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
@@ -229,6 +246,10 @@ namespace Tp3.Controllers
             }
             mensaje += "Stack trace: " + ex.StackTrace;
             _logger.LogError(mensaje);
+        }
+        private string devolverRol()
+        {
+            return HttpContext.Session.GetString("usuarioRol");
         }
     }
 }

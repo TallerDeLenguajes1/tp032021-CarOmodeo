@@ -40,6 +40,7 @@ namespace Tp3.Controllers
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador) && ModelState.IsValid)
                 {
+                    ViewBag.rol = devolverRol();
                     return View("AltaCadete", new AltaCadeteViewModel());
                 }
                 else
@@ -54,6 +55,8 @@ namespace Tp3.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AltaCadete(AltaCadeteViewModel nuevoCadeteViewModel)
         {
             try
@@ -61,9 +64,11 @@ namespace Tp3.Controllers
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador) && ModelState.IsValid)
                 {
+
                     Cadete nuevoCadete = mapper.Map<Cadete>(nuevoCadeteViewModel);
                     repoCadetes.insertCadete(nuevoCadete);
 
+                    ViewBag.rol = devolverRol();
                     return RedirectToAction(nameof(VistaCadete));
                 }
                 else
@@ -85,6 +90,7 @@ namespace Tp3.Controllers
                 int identidicador = HttpContext.Session.GetInt32("idUsuario").Value;
                 if (repoUsuario.identidicadorValido(identidicador) && ModelState.IsValid)
                 {
+                    ViewBag.rol = devolverRol();
                     return View(mapper.Map<List<CadeteViewModel>>(repoCadetes.getAllCadetes()));
                 }
                 else
@@ -107,6 +113,8 @@ namespace Tp3.Controllers
                 if (repoUsuario.identidicadorValido(identidicador))
                 {
                     repoCadetes.deleteCadete(id);
+
+                    ViewBag.rol = devolverRol();
                     return RedirectToAction(nameof(VistaCadete));
                 }
                 else
@@ -130,6 +138,7 @@ namespace Tp3.Controllers
                 {
                     Cadete cadete = repoCadetes.selectCadete(id);
 
+                    ViewBag.rol = devolverRol();
                     return View("ModificarCadete", mapper.Map<ModificarCadeteViewModel>(cadete));
                 }
                 else
@@ -144,6 +153,8 @@ namespace Tp3.Controllers
             }            
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ModificarCadete(ModificarCadeteViewModel cadeteViewModel)
         {
             try
@@ -152,6 +163,8 @@ namespace Tp3.Controllers
                 if (repoUsuario.identidicadorValido(identidicador) && ModelState.IsValid)
                 {
                     repoCadetes.updateCadete(mapper.Map<Cadete>(cadeteViewModel));
+
+                    ViewBag.rol = devolverRol();
                     return RedirectToAction(nameof(VistaCadete));
                 }
                 else
@@ -176,6 +189,11 @@ namespace Tp3.Controllers
             }
             mensaje += "Stack trace: " + ex.StackTrace;
             _logger.LogError(mensaje);
+        }
+
+        private string devolverRol()
+        {
+            return HttpContext.Session.GetString("usuarioRol");
         }
     }
 }

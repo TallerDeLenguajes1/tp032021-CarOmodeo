@@ -23,13 +23,14 @@ namespace SistemaCadeteria.Modelo
             {
                 using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
                 {
-                    string instruccion = @"INSERT INTO Usuarios (usuario, password, usuarioActivo)
-                                         VALUES (@nombre, @password, 1);";
+                    string instruccion = @"INSERT INTO Usuarios (usuario, password, usuarioRol, usuarioActivo)
+                                         VALUES (@nombre, @password, @rol, 1);";
 
                     using (SQLiteCommand command = new SQLiteCommand(instruccion, conexion))
                     {
                         command.Parameters.AddWithValue("@nombre", usuario.Nombre);
                         command.Parameters.AddWithValue("@password", usuario.Password);
+                        command.Parameters.AddWithValue("@rol", usuario.Rol);
 
                         conexion.Open();
                         command.ExecuteNonQuery();
@@ -43,7 +44,7 @@ namespace SistemaCadeteria.Modelo
             }
         }
 
-        public int GetUsuarioID(string nombre, string password)
+        public Usuario GetUsuarioPorID(string nombre, string password)
         {
             int usuarioID = 0;
 
@@ -75,7 +76,7 @@ namespace SistemaCadeteria.Modelo
                 mensajeError(ex);
             }
 
-            return usuarioID;
+            return selectUsuario(usuarioID);
         }
 
         public bool identidicadorValido(int id)
@@ -105,7 +106,7 @@ namespace SistemaCadeteria.Modelo
             {
                 using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
                 {
-                    string instruccion = @"SELECT usuarioID, usuario, password FROM Usuarios WHERE usuarioID = @id;";
+                    string instruccion = @"SELECT usuarioID, usuario, password, usuarioRol FROM Usuarios WHERE usuarioID = @id;";
 
                     using (SQLiteCommand command = new SQLiteCommand(instruccion, conexion))
                     {
@@ -121,7 +122,8 @@ namespace SistemaCadeteria.Modelo
                             {
                                 Id = Convert.ToInt32(DataReader["usuarioID"]),
                                 Nombre = DataReader["usuario"].ToString(),
-                                Password = DataReader["password"].ToString(),                                
+                                Password = DataReader["password"].ToString(),
+                                Rol = (roles)Convert.ToInt32(DataReader["usuarioRol"])
                             };
 
                             conexion.Close();
@@ -147,7 +149,7 @@ namespace SistemaCadeteria.Modelo
                 {
                     conexion.Open();
 
-                    string instruccion = @"SELECT usuarioID, usuario, password FROM Usuarios 
+                    string instruccion = @"SELECT usuarioID, usuario, password, usuarioRol FROM Usuarios 
                                         WHERE usuarioActivo = 1";
 
                     using (SQLiteCommand command = new SQLiteCommand(instruccion, conexion))
@@ -160,7 +162,8 @@ namespace SistemaCadeteria.Modelo
                             {
                                 Id = Convert.ToInt32(DataReader["usuarioID"]),
                                 Nombre = DataReader["usuario"].ToString(),
-                                Password = DataReader["password"].ToString()
+                                Password = DataReader["password"].ToString(),
+                                Rol = (roles)Convert.ToInt32(DataReader["usuarioRol"])
                             };
                             
                             listaUsuarios.Add(usuario);
@@ -209,7 +212,7 @@ namespace SistemaCadeteria.Modelo
             try
             {
                 string instruccion = @"UPDATE Usuarios 
-                                    SET usuario = @nombre, password = @pass
+                                    SET usuario = @nombre, password = @pass, usuarioRol = @rol
                                     WHERE usuarioID = @usuarioID";
 
                 using (var conexion = new SQLiteConnection(connectionString))
@@ -219,6 +222,7 @@ namespace SistemaCadeteria.Modelo
                         command.Parameters.AddWithValue("@usuarioID", modificarUsuario.Id);
                         command.Parameters.AddWithValue("@nombre", modificarUsuario.Nombre);
                         command.Parameters.AddWithValue("@pass", modificarUsuario.Password);
+                        command.Parameters.AddWithValue("@rol", modificarUsuario.Rol);
                         
 
                         conexion.Open();

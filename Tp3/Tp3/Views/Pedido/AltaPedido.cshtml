@@ -1,10 +1,10 @@
 ﻿@model Tp3.Models.ViewModels.AltaPedidoViewModel
 
 @{
-    ViewData["Title"] = "Alta de Pedido";
+    ViewData["Title"] = "AltaPedido";
 }
 
-<h1>AltaPedido</h1>
+<h1>Alta de Pedido</h1>
 
 <hr />
 <div class="row">
@@ -15,6 +15,11 @@
                 <label asp-for="Cliente.Nombre" class="control-label">Nombre</label>
                 <input asp-for="Cliente.Nombre" class="form-control" />
                 <span asp-validation-for="Cliente.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cliente.Id" class="control-label">DNI</label>
+                <input asp-for="Cliente.Id" class="form-control" />
+                <span asp-validation-for="Cliente.Id" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Cliente.Direccion" class="control-label">Dirección</label>

@@ -153,3 +153,5 @@ C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Vie
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Usuario\AltaUsuario.cshtml.g.cs
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Usuario\VistaUsuarios.cshtml.g.cs
 C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Usuario\ModificarUsuario.cshtml.g.cs
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Usuario\GuardarUsuario.cshtml.g.cs
+C:\Users\Caro\source\repos\tp032021-CarOmodeo\Tp3\Tp3\obj\Debug\net5.0\Razor\Views\Usuario\CerrarSesion.cshtml.g.cs

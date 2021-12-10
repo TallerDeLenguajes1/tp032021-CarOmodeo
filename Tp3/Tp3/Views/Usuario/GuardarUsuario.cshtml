@@ -1,0 +1,40 @@
+﻿@model Tp3.Models.ViewModels.UsuarioViewModel
+
+@{
+    ViewData["Title"] = "GuardarUsuario";
+}
+
+<h1>Usuario Guardado</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.Rol)
+            </th>           
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nombre)
+            </td>           
+            <td>
+                @Html.DisplayFor(modelItem => Model.Rol)
+            </td>            
+        </tr>}   
+    </tbody>
+</table>
+<p> El usuario @Model.Nombre se guardo con exito!!! </p>
+<p>
+    <a asp-action="Index" asp-controller="Home">Iniciar Sesion</a>
+</p>

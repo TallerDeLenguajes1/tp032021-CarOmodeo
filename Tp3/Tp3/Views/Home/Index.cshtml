@@ -12,25 +12,25 @@
                 <div class="login-form bg-light mt-4 p-4">
                     <form asp-action="Login" asp-controller="Usuario" method="post" class="row g-3">
                         <div class="col-12">
-                            <label>Username</label>
-                            <input type="text" name="username" class="form-control" placeholder="Username">
+                            <label>Usuario</label>
+                            <input type="text" name="username" class="form-control" placeholder="Nombre de Usuario" required>
                         </div>
                         <div class="col-12">
-                            <label>Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Password">
+                            <label>Contraseña</label>
+                            <input type="password" name="password" class="form-control" placeholder="Contraseña" required minlength="4">
+                        </div>
+                        <div class="col-12">
                         </div>
                         <br class="mt-4">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-dark float-end">Login</button>
+                            <button type="submit" class="btn btn-dark float-end">Iniciar</button>
                         </div>
-                    </form>
-                    <div class="col-12">                        
-                    </div>
+                    </form>                    
                     <div class="col-12">
                         <form asp-action="Create" asp-controller="Usuario" method="post" class="row g-3">
-                            <legend>Have not account yet?</legend>
+                            <legend>Aun no tienes cuenta?</legend>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-dark float-end">SingUp</button>
+                                <button type="submit" class="btn btn-dark float-end">Registrarse</button>
                             </div>
                         </form>
                     </div>

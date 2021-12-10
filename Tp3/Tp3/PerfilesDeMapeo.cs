@@ -10,6 +10,7 @@ namespace Tp3
         {
             //Mapper de Cadetes
             CreateMap<Cadete, CadeteViewModel>().ReverseMap();
+            CreateMap<Cadete, AltaCadeteViewModel>().ReverseMap();
             CreateMap<Cadete, EliminarCadeteViewModel>().ReverseMap();
             CreateMap<Cadete, ModificarCadeteViewModel>().ReverseMap();
 
